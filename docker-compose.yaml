@@ -1,0 +1,19 @@
+services:
+  dev:
+    build:
+      context: .
+    shm_size: '8gb'
+    tty: true
+    volumes:
+      - ./option:/src/option
+      - ./trackron:/src/trackron
+      - /usr/share/zoneinfo/Asia/Tokyo:/etc/localtime:ro
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
